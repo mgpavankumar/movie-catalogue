@@ -1,0 +1,18 @@
+{
+  "name": "movies",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node src/movies.ts"
+  },
+  "author": "pavan",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
