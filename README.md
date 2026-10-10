@@ -1,6 +1,6 @@
 # Movie Catalogue & Ratings · TypeScript
 
-[![CI](https://github.com/mgpavankumar/movies/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mgpavankumar/movies/actions/workflows/ci.yml)
+[![CI](https://github.com/mgpavankumar/movie-catalogue/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mgpavankumar/movie-catalogue/actions/workflows/ci.yml)
 
 An in-memory movie catalogue with UUIDs, rating aggregation, and a deterministic demonstration.
 
@@ -18,8 +18,8 @@ An in-memory movie catalogue with UUIDs, rating aggregation, and a deterministic
 Install Node.js 22 or newer and npm. Clone this repository:
 
 ```bash
-git clone https://github.com/mgpavankumar/movies.git
-cd movies
+git clone https://github.com/mgpavankumar/movie-catalogue.git
+cd movie-catalogue
 ```
 
 ```bash
