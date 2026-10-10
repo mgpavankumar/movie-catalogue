@@ -62,3 +62,5 @@ Records are held in memory and disappear when the process stops. The demonstrati
 ## Contributing
 
 Keep changes focused, use synthetic data, and include steps or tests demonstrating the fix. Do not commit local configuration or credentials.
+
+Movie getters return independent `Movie` instances with copied ratings; edits to a returned movie do not change the stored catalogue. Use `rateMovie` to update stored ratings.

@@ -25,3 +25,18 @@ test('validate movie metadata', () => {
   assert.throws(() => db.addMovie('', 'Director', 2000, 'Drama'), /Invalid/);
   assert.throws(() => db.addMovie('Movie', 'Director', NaN, 'Drama'), /Invalid/);
 });
+
+test('returned movies and ratings cannot mutate stored records', () => {
+  const db = new MoviesDatabase();
+  const id = db.addMovie('Original', 'Director', 2000, 'Drama');
+  db.rateMovie(id, 4);
+  const results = [db.getMovie(id)!, ...db.getTopRatedMovies(), ...db.getMoviesByGenre('Drama'), ...db.getMoviesByDirector('Director'), ...db.searchMoviesBasedOnKeyword('Original')];
+  for (const movie of results) {
+    movie.title = 'Changed';
+    movie.ratings.push(100);
+    movie.addRating(5);
+  }
+  assert.equal(db.getMovie(id)!.title, 'Original');
+  assert.deepEqual(db.getMovie(id)!.ratings, [4]);
+  assert.equal(db.getAverageRating(id), 4);
+});

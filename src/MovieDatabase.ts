@@ -36,6 +36,12 @@ export class Movie {
 export class MoviesDatabase {
     private movies: Map<string, Movie> = new Map();
 
+    private copyMovie(movie: Movie): Movie {
+        const copy = new Movie(movie.id, movie.title, movie.director, movie.releaseYear, movie.genre);
+        copy.ratings = [...movie.ratings];
+        return copy;
+    }
+
     // Add a movie
     addMovie(title: string, director: string, releaseYear: number, genre: string): string {
         if (!title.trim() || !director.trim() || !genre.trim() || !Number.isInteger(releaseYear) || releaseYear < 1888) {
@@ -67,27 +73,28 @@ export class MoviesDatabase {
 
     // Get top-rated movies
     getTopRatedMovies(): Movie[] {
-        return Array.from(this.movies.values()).sort((a, b) => (b.getAverageRating() || 0) - (a.getAverageRating() || 0));
+        return Array.from(this.movies.values(), movie => this.copyMovie(movie)).sort((a, b) => (b.getAverageRating() || 0) - (a.getAverageRating() || 0));
     }
 
     // Get all movies of a genre
     getMoviesByGenre(genre: string): Movie[] {
-        return Array.from(this.movies.values()).filter(movie => movie.genre === genre);
+        return Array.from(this.movies.values(), movie => this.copyMovie(movie)).filter(movie => movie.genre === genre);
     }
 
     // Get all movies by a director
     getMoviesByDirector(director: string): Movie[] {
-        return Array.from(this.movies.values()).filter(movie => movie.director === director);
+        return Array.from(this.movies.values(), movie => this.copyMovie(movie)).filter(movie => movie.director === director);
     }
 
     // Search movies based on keyword in title
     searchMoviesBasedOnKeyword(keyword: string): Movie[] {
-        return Array.from(this.movies.values()).filter(movie => movie.title.toLowerCase().includes(keyword.toLowerCase()));
+        return Array.from(this.movies.values(), movie => this.copyMovie(movie)).filter(movie => movie.title.toLowerCase().includes(keyword.toLowerCase()));
     }
 
     // Get movie details
     getMovie(id: string): Movie | undefined {
-        return this.movies.get(id);
+        const movie = this.movies.get(id);
+        return movie ? this.copyMovie(movie) : undefined;
     }
 
     // Remove a movie
